@@ -247,7 +247,7 @@ func (listener *Listener) createConn(n Network, netConn net.Conn) {
 	conn.disconnectOnUnknownPacket = !listener.cfg.AllowUnknownPackets
 	conn.disconnectOnInvalidPacket = !listener.cfg.AllowInvalidPackets
 
-	if netConn.(*raknet.Conn).ProtocolVersion() <= 10 {
+	if netConn.(*raknet.Conn).currentProtocol <= 10 {
 		conn.enc.EnableCompression(n.Compression(netConn), conn.proto.ID() <= 630)
 		if conn.proto.ID() <= 630 {
 			conn.dec.SetCompression(n.Compression(netConn))
